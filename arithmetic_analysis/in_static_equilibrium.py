@@ -1,19 +1,14 @@
 """
 Checks if a system of forces is in static equilibrium.
-
-python/black : true
-flake8 : passed
-mypy : passed
 """
+from typing import List
 
-from __future__ import annotations
-
-from numpy import array, cos, cross, radians, sin  # type: ignore
+from numpy import array, cos, cross, ndarray, radians, sin
 
 
 def polar_force(
     magnitude: float, angle: float, radian_mode: bool = False
-) -> list[float]:
+) -> List[float]:
     """
     Resolves force along rectangular components.
     (force, angle) => (force_x, force_y)
@@ -28,7 +23,7 @@ def polar_force(
 
 
 def in_static_equilibrium(
-    forces: array, location: array, eps: float = 10 ** -1
+    forces: ndarray, location: ndarray, eps: float = 10 ** -1
 ) -> bool:
     """
     Check if a system is in equilibrium.
@@ -47,7 +42,7 @@ def in_static_equilibrium(
     False
     """
     # summation of moments is zero
-    moments: array = cross(location, forces)
+    moments: ndarray = cross(location, forces)
     sum_moments: float = sum(moments)
     return abs(sum_moments) < eps
 
